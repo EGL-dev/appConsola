@@ -36,7 +36,7 @@ const pausa=()=>{
             input:process.stdin,
             output:process.stdout
         });
-        readline.question(`Presione${'Enter'.green} para continuar`,(opt)=>{
+        readline.question(`Presione${'EnteR'.green} para continuar`,(opt)=>{
             readline.close();
             resolve();
         })
