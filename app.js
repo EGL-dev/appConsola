@@ -1,44 +1,46 @@
-const { guardarDb, leerDb } = require('./helpers/guardarArchivo');
-const { inquirerMenu, pausa,leerinput } = require('./helpers/inquirer');
-const Tareas = require('./models/tareas');
+const { guardarDb, leerDb } = require("./helpers/guardarArchivo");
+const { inquirerMenu, pausa, leerinput } = require("./helpers/inquirer");
+const Tareas = require("./models/tareas");
 
-require('colors');
-
+require("colors");
 
 console.clear();
 
-const main = async()=>{
-    let opt = "";
-    const tareas = new Tareas();
-    const tareasDb = leerDb();
+const main = async () => {
+  let opt = "";
+  const tareas = new Tareas();
+  const tareasDb = leerDb();
 
-    if(tareasDb){
-        tareas.cargarTareasFromArray(tareasDb);
+  if (tareasDb) {
+    tareas.cargarTareasFromArray(tareasDb);
+  }
+
+  do {
+    opt = await inquirerMenu();
+
+    switch (opt) {
+      case "1":
+        const desc = await leerinput("Descripcion : ");
+        tareas.crearTarea(desc);
+        break;
+
+      case "2":
+        tareas.listadoCompleto();
+        break;
+      case "3":
+        tareas.listarPendientesCompletadas(true);
+        break;
+      case "4":
+        tareas.listarPendientesCompletadas(false);
+        break;
     }
 
+    guardarDb(tareas.listadoArr);
 
-    do {
-        opt= await inquirerMenu();
-        
-        switch (opt) {
-            case "1":
-                const desc = await leerinput("Descripcion : ");
-                tareas.crearTarea(desc);
-                break;
-        
-            case "2":
-            tareas.listadoCompleto();
-                break;
-        }
+    await pausa();
+  } while (opt !== "0");
 
-
-      guardarDb(tareas.listadoArr);
-
-
-        await pausa();
-    } while (opt !=='0')
-
-       // pausa();
-}
+  // pausa();
+};
 
 main();
