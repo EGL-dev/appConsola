@@ -21,6 +21,14 @@ class Tareas{
 
     }
 
+    borrarTareas( id = ''){
+        if(this.listado[id]){
+            delete this.listado[id];
+            
+        }
+        
+    }
+
     cargarTareasFromArray( tareas = []){
 
         tareas.forEach(tarea =>{
@@ -60,7 +68,7 @@ class Tareas{
 
                 if(completadoEn){
                     contador += 1
-                    console.log(`${contador.toString().green} ${desc} :: ${estado}`);
+                    console.log(`${contador.toString().green} ${desc} :: ${completadoEn}`);
                 }
             }else{
                 if(!completadoEn){
@@ -71,6 +79,9 @@ class Tareas{
             }
         })
     }
+
+
+
 }
 
 module.exports = Tareas
