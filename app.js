@@ -16,11 +16,11 @@ const main = async()=>{
         switch (opt) {
             case "1":
                 const desc = await leerinput("Descripcion : ");
-                console.log(desc);
+                tareas.crearTarea(desc);
                 break;
         
             case "2":
-
+            console.log(tareas.listado);
                 break;
         }
 
